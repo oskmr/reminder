@@ -125,18 +125,37 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditNotesCell" rowHeight="216" id="Asy-Gg-lSe">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditDateCell" rowHeight="216" id="Asy-Gg-lSe">
                                 <rect key="frame" x="0.0" y="102.5" width="414" height="216"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Asy-Gg-lSe" id="UoE-ZN-xtH">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RcK-RF-2RZ">
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="AQf-9E-Kjx">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                                        </datePicker>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="AQf-9E-Kjx" firstAttribute="leading" secondItem="UoE-ZN-xtH" secondAttribute="leading" id="O7l-JR-lIp"/>
+                                        <constraint firstAttribute="trailing" secondItem="AQf-9E-Kjx" secondAttribute="trailing" id="Qqq-X9-VUz"/>
+                                        <constraint firstAttribute="bottom" secondItem="AQf-9E-Kjx" secondAttribute="bottom" id="kPi-WJ-fby"/>
+                                        <constraint firstItem="AQf-9E-Kjx" firstAttribute="top" secondItem="UoE-ZN-xtH" secondAttribute="top" id="wZ0-IJ-mEe"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditNotesCell" rowHeight="216" id="IuA-dS-JzY">
+                                <rect key="frame" x="0.0" y="318.5" width="414" height="216"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IuA-dS-JzY" id="LHU-w0-Pz3">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VGk-9S-LW1">
                                             <rect key="frame" x="20" y="11" width="374" height="194"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="194" id="ke9-Fm-snn"/>
+                                                <constraint firstAttribute="height" constant="194" id="lCx-2W-exm"/>
                                             </constraints>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" systemColor="labelColor"/>
@@ -145,10 +164,10 @@
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="RcK-RF-2RZ" secondAttribute="bottom" id="b8X-bY-LhF"/>
-                                        <constraint firstItem="RcK-RF-2RZ" firstAttribute="top" secondItem="UoE-ZN-xtH" secondAttribute="topMargin" id="kUs-cj-YKz"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="RcK-RF-2RZ" secondAttribute="trailing" id="ueV-j6-FXK"/>
-                                        <constraint firstItem="RcK-RF-2RZ" firstAttribute="leading" secondItem="UoE-ZN-xtH" secondAttribute="leadingMargin" id="yv9-y7-SnE"/>
+                                        <constraint firstItem="VGk-9S-LW1" firstAttribute="leading" secondItem="LHU-w0-Pz3" secondAttribute="leadingMargin" id="KEq-Tq-Svj"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="VGk-9S-LW1" secondAttribute="bottom" id="ibv-bB-2WH"/>
+                                        <constraint firstItem="VGk-9S-LW1" firstAttribute="top" secondItem="LHU-w0-Pz3" secondAttribute="topMargin" id="wZ3-BM-xn1"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="VGk-9S-LW1" secondAttribute="trailing" id="wnw-Lw-nN5"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
