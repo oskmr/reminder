@@ -34,11 +34,7 @@ extension ReminderListViewController {
             fatalError("Unable to dequeue ReminderCell")
         }
         let reminder = Reminder.testData[indexPath.row]
-        let image = reminder.isComplete ? UIImage(systemName: "checkmark.circle") : UIImage(systemName: "circle")
-        cell.titleLabel.text = reminder.title
-        cell.dateLabel.text = reminder.dueDate.description
-        cell.doneButton.setBackgroundImage(image, for: .normal)
-        cell.doneButtonAction = {
+        cell.configure(title: reminder.title, dateText: reminder.dueDate.description, isDone: reminder.isComplete) {
             Reminder.testData[indexPath.row].isComplete.toggle()
             tableView.reloadRows(at: [indexPath], with: .none)
         }
