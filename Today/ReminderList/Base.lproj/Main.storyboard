@@ -104,7 +104,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditTitleCell" id="CD6-Cu-Hmd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditTitleCell" id="CD6-Cu-Hmd" customClass="EditTitleCell" customModule="Today" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="68" width="414" height="34.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CD6-Cu-Hmd" id="6Lu-hG-5IL">
@@ -124,8 +124,11 @@
                                         <constraint firstItem="PQB-8c-qlV" firstAttribute="top" secondItem="6Lu-hG-5IL" secondAttribute="top" id="xba-TA-HtJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleTextField" destination="PQB-8c-qlV" id="e7O-EV-zMb"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditDateCell" rowHeight="216" id="Asy-Gg-lSe">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditDateCell" rowHeight="216" id="Asy-Gg-lSe" customClass="EditDateCell" customModule="Today" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="102.5" width="414" height="216"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Asy-Gg-lSe" id="UoE-ZN-xtH">
@@ -134,6 +137,9 @@
                                     <subviews>
                                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="AQf-9E-Kjx">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="216"/>
+                                            <connections>
+                                                <action selector="datePickerAction:" destination="Qqp-Xv-sxO" eventType="valueChanged" id="fys-f4-pYp"/>
+                                            </connections>
                                         </datePicker>
                                     </subviews>
                                     <constraints>
@@ -143,8 +149,11 @@
                                         <constraint firstItem="AQf-9E-Kjx" firstAttribute="top" secondItem="UoE-ZN-xtH" secondAttribute="top" id="wZ0-IJ-mEe"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="datePicker" destination="AQf-9E-Kjx" id="ZkS-Kx-n8J"/>
+                                </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditNotesCell" rowHeight="216" id="IuA-dS-JzY">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditNotesCell" rowHeight="216" id="IuA-dS-JzY" customClass="EditNotesCell" customModule="Today" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="318.5" width="414" height="216"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IuA-dS-JzY" id="LHU-w0-Pz3">
@@ -170,6 +179,9 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="VGk-9S-LW1" secondAttribute="trailing" id="wnw-Lw-nN5"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="notesTextView" destination="VGk-9S-LW1" id="1at-Mi-eZz"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -180,6 +192,7 @@
                     <navigationItem key="navigationItem" title="Reminder" id="HLG-jg-Ti5"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LBu-CO-6sB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Qqp-Xv-sxO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2430.434782608696" y="112.5"/>
         </scene>
