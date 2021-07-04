@@ -16,6 +16,7 @@
 		FC8F79FA268EADE400E43395 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8F79F9268EADE400E43395 /* Reminder.swift */; };
 		FC8F79FC268EB2E800E43395 /* ReminderListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8F79FB268EB2E800E43395 /* ReminderListCell.swift */; };
 		FC8F7A01268EF1B600E43395 /* ReminderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8F7A00268EF1B600E43395 /* ReminderDetailViewController.swift */; };
+		FC8F7A242691E68400E43395 /* ReminderListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8F7A232691E68400E43395 /* ReminderListDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		FC8F79F9268EADE400E43395 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		FC8F79FB268EB2E800E43395 /* ReminderListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListCell.swift; sourceTree = "<group>"; };
 		FC8F7A00268EF1B600E43395 /* ReminderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderDetailViewController.swift; sourceTree = "<group>"; };
+		FC8F7A232691E68400E43395 /* ReminderListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,9 +96,10 @@
 		FC8F79FE268EF19300E43395 /* ReminderList */ = {
 			isa = PBXGroup;
 			children = (
-				FC8F79E8268EAD4C00E43395 /* ReminderListViewController.swift */,
-				FC8F79EA268EAD4C00E43395 /* Main.storyboard */,
 				FC8F79FD268EF17E00E43395 /* Cell */,
+				FC8F79EA268EAD4C00E43395 /* Main.storyboard */,
+				FC8F7A232691E68400E43395 /* ReminderListDataSource.swift */,
+				FC8F79E8268EAD4C00E43395 /* ReminderListViewController.swift */,
 			);
 			path = ReminderList;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				FC8F7A01268EF1B600E43395 /* ReminderDetailViewController.swift in Sources */,
 				FC8F79E7268EAD4C00E43395 /* SceneDelegate.swift in Sources */,
 				FC8F79FA268EADE400E43395 /* Reminder.swift in Sources */,
+				FC8F7A242691E68400E43395 /* ReminderListDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
