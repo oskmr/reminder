@@ -21,6 +21,7 @@ class ReminderDetailViewController: UITableViewController {
 
         setEditing(false, animated: false)
         navigationItem.setRightBarButton(editButtonItem, animated: false)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: ReminderDetailEditDataSource.dateLabelCellIdentifier)
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
