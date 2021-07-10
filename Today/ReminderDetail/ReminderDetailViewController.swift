@@ -14,7 +14,7 @@ class ReminderDetailViewController: UITableViewController {
     private var reminder: Reminder?
     private var tempReminder: Reminder?
     private var dataSource: UITableViewDataSource?
-    private var reminderChangeAction: ReminderChangeAction
+    private var reminderChangeAction: ReminderChangeAction?
 
     func configure(with reminder: Reminder, changeAction: @escaping ReminderChangeAction) {
         self.reminder = reminder
@@ -37,7 +37,7 @@ class ReminderDetailViewController: UITableViewController {
         }
         if editing {
             dataSource = ReminderDetailEditDataSource(reminder: reminder) { reminder in
-                self.reminder = reminder
+                self.tempReminder = reminder
                 self.editButtonItem.isEnabled = true
             }
             navigationItem.title = NSLocalizedString("Edit Reminder", comment: "edit reminder nav title")
@@ -46,7 +46,7 @@ class ReminderDetailViewController: UITableViewController {
             if let tempReminder = tempReminder {
                 self.reminder = tempReminder
                 self.tempReminder = nil
-                reminderChangeAction(tempReminder)
+                reminderChangeAction?(tempReminder)
                 dataSource = ReminderDetailViewDataSource(reminder: tempReminder)
             } else {
                 dataSource = ReminderDetailViewDataSource(reminder: reminder)
