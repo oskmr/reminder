@@ -11,8 +11,11 @@ class ReminderListViewController: UITableViewController {
 
     private var reminderListDataSource: ReminderListDataSource?
     static let showDetailSegueIdentifier = "ShowReminderDetailSegue"
+    static let mainStoryboardName = "main"
+    static let detailViewControllerIdentifier = "ReminderDetailViewController"
 
     @IBAction func addButtonTriggered(_ sender: UIBarButtonItem) {
+        addReminder()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,6 +47,17 @@ class ReminderListViewController: UITableViewController {
            navigationController.isToolbarHidden {
             navigationController.setToolbarHidden(false, animated: animated)
         }
+    }
+
+    private func addReminder() {
+        let storyboard = UIStoryboard(name: Self.mainStoryboardName, bundle: nil)
+        let detailViewController: ReminderDetailViewController = storyboard.instantiateViewController(identifier: Self.detailViewControllerIdentifier)
+        let reminder = Reminder(title: "New Reminder", dueDate: Date())
+        detailViewController.configure(with: reminder) { reminder in
+
+        }
+        let navigationController = UINavigationController(rootViewController: detailViewController)
+        present(navigationController, animated: true, completion: nil)
     }
 
 }
