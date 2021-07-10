@@ -12,6 +12,9 @@ class ReminderListViewController: UITableViewController {
     private var reminderListDataSource: ReminderListDataSource?
     static let showDetailSegueIdentifier = "ShowReminderDetailSegue"
 
+    @IBAction func addButtonTriggered(_ sender: UIBarButtonItem) {
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Self.showDetailSegueIdentifier,
            let destination = segue.destination as? ReminderDetailViewController,
@@ -33,6 +36,14 @@ class ReminderListViewController: UITableViewController {
 
         reminderListDataSource = ReminderListDataSource()
         tableView.dataSource = reminderListDataSource
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let navigationController = navigationController,
+           navigationController.isToolbarHidden {
+            navigationController.setToolbarHidden(false, animated: animated)
+        }
     }
 
 }
