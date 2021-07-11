@@ -9,13 +9,22 @@ import UIKit
 
 class ReminderListViewController: UITableViewController {
 
-    private var reminderListDataSource: ReminderListDataSource?
     static let showDetailSegueIdentifier = "ShowReminderDetailSegue"
     static let mainStoryboardName = "Main"
     static let detailViewControllerIdentifier = "ReminderDetailViewController"
 
+    private var reminderListDataSource: ReminderListDataSource?
+    private var filter: ReminderListDataSource.Filter {
+        return ReminderListDataSource.Filter(rawValue: filterSegmentedControl.selectedSegmentIndex) ?? .today
+    }
+
+    @IBOutlet weak var filterSegmentedControl: UISegmentedControl!
     @IBAction func addButtonTriggered(_ sender: UIBarButtonItem) {
         addReminder()
+    }
+    @IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
+        reminderListDataSource?.filter = filter
+        tableView.reloadData()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
