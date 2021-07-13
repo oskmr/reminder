@@ -8,7 +8,6 @@
 import UIKit
 
 class ReminderListDataSource: NSObject {
-    private lazy var dateFormatter = RelativeDateTimeFormatter()
 
     enum Filter: Int {
         case today
@@ -58,12 +57,51 @@ extension ReminderListDataSource: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Self.reminderListCellIdentifier, for: indexPath) as? ReminderListCell else {
             fatalError("Unable to dequeue ReminderCell")
         }
-        let reminder = Reminder.testData[indexPath.row]
-        let dateText = dateFormatter.localizedString(for: reminder.dueDate, relativeTo: Date())
-        cell.configure(title: reminder.title, dateText: dateText, isDone: reminder.isComplete) {
+        let currentReminder = reminder(at: indexPath.row)
+        let dateText = currentReminder.dueDateTimeText(for: filter)
+        cell.configure(title: currentReminder.title, dateText: dateText, isDone: currentReminder.isComplete) {
             Reminder.testData[indexPath.row].isComplete.toggle()
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         return cell
+    }
+}
+
+extension Reminder {
+    static let timeFormatter: DateFormatter = {
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateStyle = .none
+        timeFormatter.timeStyle = .short
+        return timeFormatter
+    }()
+
+    static let futureDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        return dateFormatter
+    }()
+
+    static let todayDateFormatter: DateFormatter = {
+        let format = NSLocalizedString("'Today at '%@", comment: "format string for dates occurring today")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = String(format: format, "hh:mm a")
+        return dateFormatter
+    }()
+
+    func dueDateTimeText(for filter: ReminderListDataSource.Filter) -> String {
+        let isInToday = Locale.current.calendar.isDateInToday(dueDate)
+        switch filter {
+        case .today:
+            return Self.timeFormatter.string(from: dueDate)
+        case .future:
+            return Self.futureDateFormatter.string(from: dueDate)
+        case .all:
+            if isInToday {
+                return Self.todayDateFormatter.string(from: dueDate)
+            } else {
+                return Self.futureDateFormatter.string(from: dueDate)
+            }
+        }
     }
 }
