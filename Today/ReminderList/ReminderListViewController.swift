@@ -18,6 +18,7 @@ class ReminderListViewController: UITableViewController {
         return ReminderListDataSource.Filter(rawValue: filterSegmentedControl.selectedSegmentIndex) ?? .today
     }
 
+    @IBOutlet weak var percentCompleteHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var progressContainerView: UIView!
     @IBOutlet private weak var percentIncompleteView: UIView!
     @IBOutlet private weak var filterSegmentedControl: UISegmentedControl!
@@ -50,6 +51,14 @@ class ReminderListViewController: UITableViewController {
 
         reminderListDataSource = ReminderListDataSource()
         tableView.dataSource = reminderListDataSource
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        let radius = view.bounds.size.width * 0.5 * 0.7
+        progressContainerView.layer.cornerRadius = radius
+        progressContainerView.layer.masksToBounds = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
