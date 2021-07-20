@@ -19,25 +19,39 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yuw-SQ-ad0" userLabel="Progress ContainerView">
-                                    <rect key="frame" x="78" y="78" width="241" height="174"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yuw-SQ-ad0" userLabel="Progress ContainerView">
+                                    <rect key="frame" x="62" y="62" width="290" height="290"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzu-3l-z72" userLabel="Percent Incomplete View">
-                                            <rect key="frame" x="0.0" y="0.0" width="241" height="88"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kzu-3l-z72" userLabel="Percent Incomplete View">
+                                            <rect key="frame" x="0.0" y="0.0" width="290" height="146"/>
                                             <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         </view>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nCw-EI-Bar" userLabel=" Percent Complete View">
-                                            <rect key="frame" x="0.0" y="88" width="241" height="86"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nCw-EI-Bar" userLabel=" Percent Complete View">
+                                            <rect key="frame" x="0.0" y="146" width="290" height="144"/>
                                             <color key="backgroundColor" systemColor="systemTealColor"/>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="nCw-EI-Bar" secondAttribute="trailing" id="5wO-8d-ELI"/>
+                                        <constraint firstItem="Kzu-3l-z72" firstAttribute="top" secondItem="Yuw-SQ-ad0" secondAttribute="top" id="9ZY-Lb-Dtj"/>
+                                        <constraint firstAttribute="trailing" secondItem="Kzu-3l-z72" secondAttribute="trailing" id="DfT-Kn-E3H"/>
+                                        <constraint firstItem="nCw-EI-Bar" firstAttribute="top" secondItem="Kzu-3l-z72" secondAttribute="bottom" id="HqG-Ok-RcJ"/>
+                                        <constraint firstAttribute="height" constant="146" id="Mqi-VA-wtG"/>
+                                        <constraint firstAttribute="width" secondItem="Yuw-SQ-ad0" secondAttribute="height" multiplier="1:1" id="NHU-ee-0kZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="nCw-EI-Bar" secondAttribute="bottom" id="i1h-An-toR"/>
+                                        <constraint firstItem="Kzu-3l-z72" firstAttribute="leading" secondItem="Yuw-SQ-ad0" secondAttribute="leading" id="sKu-6E-emu"/>
+                                        <constraint firstItem="nCw-EI-Bar" firstAttribute="top" secondItem="Yuw-SQ-ad0" secondAttribute="top" constant="146" id="v83-0Y-fbs"/>
+                                        <constraint firstItem="nCw-EI-Bar" firstAttribute="leading" secondItem="Yuw-SQ-ad0" secondAttribute="leading" id="wTv-di-lxl"/>
+                                    </constraints>
                                 </view>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemGreenColor"/>
+                            <constraints>
+                                <constraint firstItem="Yuw-SQ-ad0" firstAttribute="width" secondItem="l9G-Em-uls" secondAttribute="width" multiplier="0.7" id="4rA-IX-a3f"/>
+                                <constraint firstItem="Yuw-SQ-ad0" firstAttribute="centerX" secondItem="l9G-Em-uls" secondAttribute="centerX" id="k8X-Nk-76E"/>
+                                <constraint firstItem="Yuw-SQ-ad0" firstAttribute="centerY" secondItem="l9G-Em-uls" secondAttribute="centerY" id="pRc-9o-chq"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderListCell" rowHeight="99" id="AYZ-xa-3G0" customClass="ReminderListCell" customModule="Today" customModuleProvider="target">
@@ -120,6 +134,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="filterSegmentedControl" destination="n6J-gh-zSX" id="o4H-m0-tUg"/>
+                        <outlet property="percentIncompleteView" destination="Kzu-3l-z72" id="Dgl-5E-Szq"/>
+                        <outlet property="progressContainerView" destination="Yuw-SQ-ad0" id="r22-Ff-3TP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aO2-IQ-b9i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

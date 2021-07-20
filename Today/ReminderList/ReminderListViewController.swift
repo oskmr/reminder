@@ -18,7 +18,9 @@ class ReminderListViewController: UITableViewController {
         return ReminderListDataSource.Filter(rawValue: filterSegmentedControl.selectedSegmentIndex) ?? .today
     }
 
-    @IBOutlet weak var filterSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var progressContainerView: UIView!
+    @IBOutlet private weak var percentIncompleteView: UIView!
+    @IBOutlet private weak var filterSegmentedControl: UISegmentedControl!
     @IBAction func addButtonTriggered(_ sender: UIBarButtonItem) {
         addReminder()
     }
