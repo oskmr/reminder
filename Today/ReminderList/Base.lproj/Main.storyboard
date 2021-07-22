@@ -16,18 +16,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="l9G-Em-uls" userLabel="Progress HeaderView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="323"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yuw-SQ-ad0" userLabel="Progress ContainerView">
-                                    <rect key="frame" x="62" y="62" width="290" height="290"/>
+                                    <rect key="frame" x="62" y="16.5" width="290" height="290"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kzu-3l-z72" userLabel="Percent Incomplete View">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="146"/>
-                                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="290" height="170"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nCw-EI-Bar" userLabel=" Percent Complete View">
-                                            <rect key="frame" x="0.0" y="146" width="290" height="144"/>
+                                            <rect key="frame" x="0.0" y="170" width="290" height="120"/>
                                             <color key="backgroundColor" systemColor="systemTealColor"/>
                                         </view>
                                     </subviews>
@@ -37,11 +37,11 @@
                                         <constraint firstItem="Kzu-3l-z72" firstAttribute="top" secondItem="Yuw-SQ-ad0" secondAttribute="top" id="9ZY-Lb-Dtj"/>
                                         <constraint firstAttribute="trailing" secondItem="Kzu-3l-z72" secondAttribute="trailing" id="DfT-Kn-E3H"/>
                                         <constraint firstItem="nCw-EI-Bar" firstAttribute="top" secondItem="Kzu-3l-z72" secondAttribute="bottom" id="HqG-Ok-RcJ"/>
-                                        <constraint firstAttribute="height" constant="146" id="Mqi-VA-wtG"/>
+                                        <constraint firstAttribute="bottom" secondItem="Kzu-3l-z72" secondAttribute="bottom" constant="120" id="MqE-8H-CV0"/>
+                                        <constraint firstAttribute="height" constant="120" id="Mqi-VA-wtG"/>
                                         <constraint firstAttribute="width" secondItem="Yuw-SQ-ad0" secondAttribute="height" multiplier="1:1" id="NHU-ee-0kZ"/>
                                         <constraint firstAttribute="bottom" secondItem="nCw-EI-Bar" secondAttribute="bottom" id="i1h-An-toR"/>
                                         <constraint firstItem="Kzu-3l-z72" firstAttribute="leading" secondItem="Yuw-SQ-ad0" secondAttribute="leading" id="sKu-6E-emu"/>
-                                        <constraint firstItem="nCw-EI-Bar" firstAttribute="top" secondItem="Yuw-SQ-ad0" secondAttribute="top" constant="146" id="v83-0Y-fbs"/>
                                         <constraint firstItem="nCw-EI-Bar" firstAttribute="leading" secondItem="Yuw-SQ-ad0" secondAttribute="leading" id="wTv-di-lxl"/>
                                     </constraints>
                                 </view>
@@ -54,7 +54,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderListCell" rowHeight="99" id="AYZ-xa-3G0" customClass="ReminderListCell" customModule="Today" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="438.5" width="414" height="99"/>
+                                <rect key="frame" x="0.0" y="347.5" width="414" height="99"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AYZ-xa-3G0" id="SRk-oa-jQm">
                                     <rect key="frame" x="0.0" y="0.0" width="384.5" height="99"/>
@@ -133,9 +133,10 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="filterSegmentedControl" destination="n6J-gh-zSX" id="o4H-m0-tUg"/>
-                        <outlet property="percentCompleteHeightConstraint" destination="k8X-Nk-76E" id="Hfp-m7-h7L"/>
+                        <outlet property="percentCompleteHeightConstraint" destination="MqE-8H-CV0" id="JPc-gp-W5h"/>
                         <outlet property="percentIncompleteView" destination="Kzu-3l-z72" id="Dgl-5E-Szq"/>
                         <outlet property="progressContainerView" destination="Yuw-SQ-ad0" id="r22-Ff-3TP"/>
+                        <outlet property="progressView" destination="Yuw-SQ-ad0" id="gvk-Am-6Tl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aO2-IQ-b9i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -290,9 +291,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
