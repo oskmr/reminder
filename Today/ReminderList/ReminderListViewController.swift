@@ -105,3 +105,31 @@ class ReminderListViewController: UITableViewController {
     }
 
 }
+
+fileprivate extension ReminderListDataSource.Filter {
+    private var gradientBeginColor: UIColor? {
+        switch self {
+        case .today: return UIColor(named: "LIST_GradientTodayBegin")
+        case .future: return UIColor(named: "LIST_GradientFutureBegin")
+        case .all: return UIColor(named: "LIST_GradientAllBegin")
+        }
+    }
+
+    private var gradientEndColor: UIColor? {
+        switch self {
+        case .today: return UIColor(named: "LIST_GradientTodayEnd")
+        case .future: return UIColor(named: "LIST_GradientFutureEnd")
+        case .all: return UIColor(named: "LIST_GradientAllEnd")
+        }
+    }
+
+    var backgroundColors: [CGColor]? {
+        guard let beginColor = gradientBeginColor, let endColor = gradientEndColor else {
+            return nil
+        }
+        return [beginColor.cgColor, endColor.cgColor]
+    }
+    var substituteBackgroundColor: UIColor {
+        return gradientBeginColor ?? .tertiarySystemBackground
+    }
+}
