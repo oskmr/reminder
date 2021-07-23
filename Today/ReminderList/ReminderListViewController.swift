@@ -68,6 +68,8 @@ class ReminderListViewController: UITableViewController {
         progressContainerView.layer.masksToBounds = true
         progressView.layer.borderWidth = 2
         progressView.layer.borderColor = UIColor.systemTeal.cgColor
+        refreshProgressView()
+        refreshBackground()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -102,6 +104,20 @@ class ReminderListViewController: UITableViewController {
         UIView.animate(withDuration: 0.2) {
             self.progressContainerView.layoutSubviews()
         }
+    }
+
+    private func refreshBackground() {
+        tableView.backgroundColor = nil
+        let backgroundView = UIView()
+        if let backgroundColors = filter.backgroundColors {
+            let gradientBackgroundLayer = CAGradientLayer()
+            gradientBackgroundLayer.colors = backgroundColors
+            gradientBackgroundLayer.frame = tableView.frame
+            backgroundView.layer.addSublayer(gradientBackgroundLayer)
+        } else {
+            backgroundView.backgroundColor = filter.substituteBackgroundColor
+        }
+        tableView.backgroundView = backgroundView
     }
 
 }
