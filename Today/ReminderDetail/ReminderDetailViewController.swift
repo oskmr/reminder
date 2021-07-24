@@ -84,8 +84,10 @@ class ReminderDetailViewController: UITableViewController {
         }
         if editing {
             transitionToEditMode(reminder)
+            tableView.backgroundColor = UIColor(named: "EDIT_Background")
         } else {
             transitionToViewMode(reminder)
+            tableView.backgroundColor = UIColor(named: "VIEW_Background")
         }
         tableView.dataSource = dataSource
         tableView.reloadData()
@@ -100,4 +102,20 @@ class ReminderDetailViewController: UITableViewController {
         }
     }
 
+}
+
+extension ReminderDetailViewController {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isEditing {
+            cell.backgroundColor = UIColor(named: "EDIT_TableRowBackground")
+            guard let editSection = ReminderDetailEditDataSource.ReminderSection(rawValue: indexPath.section) else {
+                return
+            }
+            if editSection == .dueDate, indexPath.row == 0 {
+                cell.textLabel?.textColor = UIColor(named: "EDIT_DateLabelText")
+            }
+        } else {
+            cell.backgroundColor = .systemBackground
+        }
+    }
 }
