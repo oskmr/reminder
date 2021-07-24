@@ -17,7 +17,6 @@ class EditTitleCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
         titleTextField.delegate = self
     }
 

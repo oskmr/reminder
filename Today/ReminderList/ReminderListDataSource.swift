@@ -34,7 +34,6 @@ class ReminderListDataSource: NSObject {
     var filteredReminders: [Reminder] {
         return Reminder.testData.filter { filter.shouldInclude(date: $0.dueDate) }.sorted { $0.dueDate < $1.dueDate }
     }
-
     var percentComplete: Double {
         guard filteredReminders.count > 0 else {
             return 1

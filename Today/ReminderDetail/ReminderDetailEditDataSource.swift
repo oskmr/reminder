@@ -15,7 +15,7 @@ class ReminderDetailEditDataSource: NSObject {
         case title
         case dueDate
         case notes
-
+        
         var displayText: String {
             switch self {
             case .title:
@@ -107,7 +107,6 @@ class ReminderDetailEditDataSource: NSObject {
 }
 
 extension ReminderDetailEditDataSource: UITableViewDataSource {
-
     func numberOfSections(in tableView: UITableView) -> Int {
         return ReminderSection.allCases.count
     }
@@ -124,12 +123,10 @@ extension ReminderDetailEditDataSource: UITableViewDataSource {
         guard let section = ReminderSection(rawValue: section) else {
             fatalError("Section index out of range")
         }
-
         return section.displayText
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
-
 }

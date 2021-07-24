@@ -9,15 +9,6 @@ import UIKit
 
 class ReminderListViewController: UITableViewController {
 
-    static let showDetailSegueIdentifier = "ShowReminderDetailSegue"
-    static let mainStoryboardName = "Main"
-    static let detailViewControllerIdentifier = "ReminderDetailViewController"
-
-    private var reminderListDataSource: ReminderListDataSource?
-    private var filter: ReminderListDataSource.Filter {
-        return ReminderListDataSource.Filter(rawValue: filterSegmentedControl.selectedSegmentIndex) ?? .today
-    }
-
     @IBOutlet weak var progressView: UIView!
     @IBOutlet weak var percentCompleteHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var progressContainerView: UIView!
@@ -29,21 +20,32 @@ class ReminderListViewController: UITableViewController {
     @IBAction func segmentControlChanged(_ sender: UISegmentedControl) {
         reminderListDataSource?.filter = filter
         tableView.reloadData()
-        self.refreshProgressView()
+        refreshProgressView()
+        refreshBackground()
+    }
+
+    static let showDetailSegueIdentifier = "ShowReminderDetailSegue"
+    static let mainStoryboardName = "Main"
+    static let detailViewControllerIdentifier = "ReminderDetailViewController"
+
+    private var reminderListDataSource: ReminderListDataSource?
+    private var filter: ReminderListDataSource.Filter {
+        return ReminderListDataSource.Filter(rawValue: filterSegmentedControl.selectedSegmentIndex) ?? .today
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Self.showDetailSegueIdentifier,
-           let destination = segue.destination as? ReminderDetailViewController,
-           let cell = sender as? UITableViewCell,
-           let indexPath = tableView.indexPath(for: cell) {
+            let destination = segue.destination as? ReminderDetailViewController,
+            let cell = sender as? UITableViewCell,
+            let indexPath = tableView.indexPath(for: cell) {
             let rowIndex = indexPath.row
             guard let reminder = reminderListDataSource?.reminder(at: rowIndex) else {
                 fatalError("Couldn't find data source for reminder list.")
             }
-            destination.configure(with: reminder, isNew: true, editAction:  { reminder in
+            destination.configure(with: reminder, editAction: { reminder in
                 self.reminderListDataSource?.update(reminder, at: rowIndex)
                 self.tableView.reloadData()
+                self.refreshProgressView()
             })
         }
     }
@@ -66,8 +68,6 @@ class ReminderListViewController: UITableViewController {
         let radius = view.bounds.size.width * 0.5 * 0.7
         progressContainerView.layer.cornerRadius = radius
         progressContainerView.layer.masksToBounds = true
-        progressView.layer.borderWidth = 2
-        progressView.layer.borderColor = UIColor.systemTeal.cgColor
         refreshProgressView()
         refreshBackground()
     }
@@ -84,7 +84,6 @@ class ReminderListViewController: UITableViewController {
         let storyboard = UIStoryboard(name: Self.mainStoryboardName, bundle: nil)
         let detailViewController: ReminderDetailViewController = storyboard.instantiateViewController(identifier: Self.detailViewControllerIdentifier)
         let reminder = Reminder(id: UUID().uuidString, title: "New Reminder", dueDate: Date())
-        
         detailViewController.configure(with: reminder, isNew: true, addAction: { reminder in
             if let index = self.reminderListDataSource?.add(reminder) {
                 self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
@@ -107,7 +106,7 @@ class ReminderListViewController: UITableViewController {
     }
 
     private func refreshBackground() {
-        tableView.backgroundColor = nil
+        tableView.backgroundView = nil
         let backgroundView = UIView()
         if let backgroundColors = filter.backgroundColors {
             let gradientBackgroundLayer = CAGradientLayer()
@@ -145,6 +144,7 @@ fileprivate extension ReminderListDataSource.Filter {
         }
         return [beginColor.cgColor, endColor.cgColor]
     }
+
     var substituteBackgroundColor: UIColor {
         return gradientBeginColor ?? .tertiarySystemBackground
     }
