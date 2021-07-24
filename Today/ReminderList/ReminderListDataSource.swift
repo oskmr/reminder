@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EventKit
 
 class ReminderListDataSource: NSObject {
 
@@ -43,6 +44,7 @@ class ReminderListDataSource: NSObject {
         return numComplete / Double(filteredReminders.count)
     }
 
+    private let eventStore = EKEventStore()
     private var reminderCompletedAction: ReminderCompletedAction?
     private var reminderDeletedAction: ReminderDeletedAction?
 
@@ -150,6 +152,24 @@ extension Reminder {
             } else {
                 return Self.futureDateFormatter.string(from: dueDate)
             }
+        }
+    }
+}
+
+extension ReminderListDataSource {
+    // ユーザーがイベントへのアクセス許可をしたかどうかを取得
+    private var isAvailable: Bool {
+        EKEventStore.authorizationStatus(for: .reminder) == .authorized
+    }
+
+    private func requestAccess(completion: @escaping (Bool) -> Void) {
+        let currentStatus = EKEventStore.authorizationStatus(for: .reminder)
+        guard currentStatus == .notDetermined else {
+            completion(currentStatus == .authorized)
+            return
+        }
+        eventStore.requestAccess(to: .reminder) { success, error in
+            completion(success)
         }
     }
 }
