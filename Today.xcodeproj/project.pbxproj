@@ -108,8 +108,8 @@
 			children = (
 				FC8F79FD268EF17E00E43395 /* Cell */,
 				FC8F79EA268EAD4C00E43395 /* Main.storyboard */,
-				FC8F7A232691E68400E43395 /* ReminderListDataSource.swift */,
 				FC8F79E8268EAD4C00E43395 /* ReminderListViewController.swift */,
+				FC8F7A232691E68400E43395 /* ReminderListDataSource.swift */,
 			);
 			path = ReminderList;
 			sourceTree = "<group>";

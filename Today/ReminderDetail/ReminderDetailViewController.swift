@@ -23,7 +23,7 @@ class ReminderDetailViewController: UITableViewController {
         self.isNew = isNew
         self.reminderAddAction = addAction
         self.reminderEditAction = editAction
-
+        
         if isViewLoaded {
             setEditing(isNew, animated: false)
         }
@@ -78,7 +78,6 @@ class ReminderDetailViewController: UITableViewController {
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-
         guard let reminder = reminder else {
             fatalError("No reminder found for detail view")
         }
@@ -113,9 +112,18 @@ extension ReminderDetailViewController {
             }
             if editSection == .dueDate, indexPath.row == 0 {
                 cell.textLabel?.textColor = UIColor(named: "EDIT_DateLabelText")
+                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
             }
         } else {
             cell.backgroundColor = .systemBackground
+            guard let viewRow = ReminderDetailViewDataSource.ReminderRow(rawValue: indexPath.row) else {
+                return
+            }
+            if viewRow == .title {
+                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
+            } else {
+                cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+            }
         }
     }
 }
