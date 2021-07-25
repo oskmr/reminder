@@ -78,11 +78,10 @@ class ReminderListDataSource: NSObject {
     }
 
     func update(_ reminder: Reminder, at row: Int, completion: (Bool) -> Void) {
-        saveReminder(reminder) { success in
-            if success {
-                let index = self.index(for: row)
-                reminders[index] = reminder
-            }
+        saveReminder(reminder) { id in
+            let success = id != nil
+            let index = self.index(for: row)
+            reminders[index] = reminder
             completion(success)
         }
     }
@@ -96,9 +95,21 @@ class ReminderListDataSource: NSObject {
         return filteredReminders[row]
     }
 
-    func add(_ reminder: Reminder) -> Int? {
-        reminders.insert(reminder, at: 0)
-        return filteredReminders.firstIndex(where: { $0.id == reminder.id})
+    func add(_ reminder: Reminder, completion: (Int?) -> Void) {
+        saveReminder(reminder) { id in
+            if let id = id {
+                let reminder = Reminder(id: id,
+                                        title: reminder.title,
+                                        dueDate: reminder.dueDate,
+                                        notes: reminder.notes,
+                                        isComplete: reminder.isComplete)
+                reminders.insert(reminder, at: 0)
+                let index = filteredReminders.firstIndex { $0.id == id }
+                completion(index)
+            } else {
+                completion(nil)
+            }
+        }
     }
 
     func index(for filteredIndex: Int) -> Int {
@@ -230,9 +241,9 @@ extension ReminderListDataSource {
         }
     }
 
-    private func saveReminder(_ reminder: Reminder, completion: (Bool) -> Void) {
+    private func saveReminder(_ reminder: Reminder, completion: (String?) -> Void) {
         guard isAvailable else {
-            completion(false)
+            completion(nil)
             return
         }
 
@@ -256,9 +267,9 @@ extension ReminderListDataSource {
 
             do {
                 try self.eventStore.save(ekReminder, commit: true)
-                completion(true)
+                completion(ekReminder.calendarItemIdentifier)
             } catch {
-                completion(false)
+                completion(nil)
             }
         }
     }
