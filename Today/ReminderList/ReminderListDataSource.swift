@@ -12,6 +12,7 @@ class ReminderListDataSource: NSObject {
 
     typealias ReminderCompletedAction = (Int) -> Void
     typealias ReminderDeletedAction = () -> Void
+    typealias RemindersChangedAction = () -> Void
 
     enum Filter: Int {
         case today
@@ -48,10 +49,19 @@ class ReminderListDataSource: NSObject {
     private var reminders: [Reminder] = []
     private var reminderCompletedAction: ReminderCompletedAction?
     private var reminderDeletedAction: ReminderDeletedAction?
+    private var remindersChangeAction: RemindersChangedAction?
 
-    init(reminderCompletedAction: @escaping ReminderCompletedAction, reminderDeletedAction: @escaping ReminderDeletedAction) {
+    init(reminderCompletedAction: @escaping ReminderCompletedAction, reminderDeletedAction: @escaping ReminderDeletedAction, remindersChangeAction: @escaping RemindersChangedAction) {
         self.reminderCompletedAction = reminderCompletedAction
+        self.reminderDeletedAction = reminderDeletedAction
+        self.remindersChangeAction = remindersChangeAction
         super.init()
+
+        requestAccess { authorized in
+            if authorized {
+                self.readAllReminders()
+            }
+        }
     }
 
     func update(_ reminder: Reminder, at row: Int) {
@@ -194,6 +204,7 @@ extension ReminderListDataSource {
                                         isComplete: $0.isCompleted)
                 return reminder
             }
+            self.remindersChangeAction?()
         }
     }
 }
