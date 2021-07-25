@@ -43,7 +43,14 @@ class ReminderListViewController: UITableViewController {
                 fatalError("Couldn't find data source for reminder list.")
             }
             destination.configure(with: reminder, editAction: { reminder in
-                self.reminderListDataSource?.update(reminder, at: rowIndex)
+                self.reminderListDataSource?.update(reminder, at: rowIndex) { success in
+                    if success {
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
+                            self.refreshProgressView()
+                        }
+                    }
+                }
                 self.tableView.reloadData()
                 self.refreshProgressView()
             })

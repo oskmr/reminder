@@ -77,9 +77,14 @@ class ReminderListDataSource: NSObject {
         }
     }
 
-    func update(_ reminder: Reminder, at row: Int) {
-        let index = self.index(for: row)
-        reminders[index] = reminder
+    func update(_ reminder: Reminder, at row: Int, completion: (Bool) -> Void) {
+        saveReminder(reminder) { success in
+            if success {
+                let index = self.index(for: row)
+                reminders[index] = reminder
+            }
+            completion(success)
+        }
     }
 
     func delete(at row: Int) {
@@ -121,7 +126,11 @@ extension ReminderListDataSource: UITableViewDataSource {
         cell.configure(title: currentReminder.title, dateText: dateText, isDone: currentReminder.isComplete) {
             var modifiedReminder = currentReminder
             modifiedReminder.isComplete.toggle()
-            self.update(modifiedReminder, at: indexPath.row)
+            self.update(modifiedReminder, at: indexPath.row) { success in
+                if success {
+                    self.reminderCompletedAction?(indexPath.row)
+                }
+            }
             self.reminderCompletedAction?(indexPath.row)
         }
         return cell
