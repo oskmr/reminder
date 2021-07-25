@@ -60,6 +60,19 @@ class ReminderListDataSource: NSObject {
         requestAccess { authorized in
             if authorized {
                 self.readAllReminders()
+                NotificationCenter.default.addObserver(self, selector: #selector(self.storeChanged(_:)), name: .EKEventStoreChanged, object: self.eventStore)
+            }
+        }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .EKEventStoreChanged, object: self.eventStore)
+    }
+
+    @objc func storeChanged(_ notification: NSNotification) {
+        requestAccess { authorized in
+            if authorized {
+                self.readAllReminders()
             }
         }
     }
