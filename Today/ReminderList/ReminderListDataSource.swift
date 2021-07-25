@@ -220,4 +220,19 @@ extension ReminderListDataSource {
             self.remindersChangeAction?()
         }
     }
+
+    private func readReminder(with id: String, completion: (EKReminder?) -> Void) {
+        // リマインダーへのアクセス許可がない場合はreturn
+        guard isAvailable else {
+            completion(nil)
+            return
+        }
+
+        guard let calenderItem = eventStore.calendarItem(withIdentifier: id),
+              let ekReminder = calenderItem as? EKReminder else {
+            completion(nil)
+            return
+        }
+        completion(ekReminder)
+    }
 }
