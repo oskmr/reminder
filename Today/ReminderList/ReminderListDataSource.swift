@@ -221,6 +221,39 @@ extension ReminderListDataSource {
         }
     }
 
+    private func saveReminder(_ reminder: Reminder, completion: (Bool) -> Void) {
+        guard isAvailable else {
+            completion(false)
+            return
+        }
+
+        readReminder(with: reminder.id) { ekReminder in
+            let ekReminder = ekReminder ?? EKReminder(eventStore: self.eventStore)
+            ekReminder.title = reminder.title
+            ekReminder.notes = reminder.notes
+            ekReminder.isCompleted = reminder.isComplete
+            ekReminder.calendar = self.eventStore.defaultCalendarForNewReminders()
+            ekReminder.alarms?.forEach { alarm in
+                if let absoluteDate = alarm.absoluteDate {
+                    let comparsion = Locale.current.calendar.compare(reminder.dueDate, to: absoluteDate, toGranularity: .minute)
+                    if comparsion != .orderedSame {
+                        ekReminder.removeAlarm(alarm)
+                    }
+                }
+            }
+            if !ekReminder.hasAlarms {
+                ekReminder.addAlarm(EKAlarm(absoluteDate: reminder.dueDate))
+            }
+
+            do {
+                try self.eventStore.save(ekReminder, commit: true)
+                completion(true)
+            } catch {
+                completion(false)
+            }
+        }
+    }
+
     private func readReminder(with id: String, completion: (EKReminder?) -> Void) {
         // リマインダーへのアクセス許可がない場合はreturn
         guard isAvailable else {
