@@ -86,9 +86,15 @@ class ReminderListDataSource: NSObject {
         }
     }
 
-    func delete(at row: Int) {
-        let index = self.index(for: row)
-        reminders.remove(at: index)
+    func delete(at row: Int, completion: (Bool) -> Void) {
+        let reminder = self.reminder(at: row)
+        removeReminder(with: reminder.id) { (success) in
+            if success {
+                let index = self.index(for: row)
+                reminders.remove(at: index)
+            }
+            completion(success)
+        }
     }
 
     func reminder(at row: Int) -> Reminder {
@@ -151,13 +157,16 @@ extension ReminderListDataSource: UITableViewDataSource {
         guard editingStyle == .delete else {
             return
         }
-        delete(at: indexPath.row)
-        tableView.performBatchUpdates({
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }) { (_) in
-            tableView.reloadData()
+        delete(at: indexPath.row) { success in
+            if success {
+                tableView.performBatchUpdates({
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }) { (_) in
+                    tableView.reloadData()
+                }
+                reminderDeletedAction?()
+            }
         }
-        reminderDeletedAction?()
     }
 }
 
@@ -287,5 +296,25 @@ extension ReminderListDataSource {
             return
         }
         completion(ekReminder)
+    }
+
+    private func removeReminder(with id: String, completion: (Bool) -> Void) {
+        guard isAvailable else {
+            completion(false)
+            return
+        }
+
+        readReminder(with: id) { (ekReminder) in
+            if let ekReminder = ekReminder {
+                do {
+                    try self.eventStore.remove(ekReminder, commit: true)
+                    completion(true)
+                } catch {
+                    completion(false)
+                }
+            } else {
+                completion(false)
+            }
+        }
     }
 }
