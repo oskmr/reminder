@@ -107,10 +107,22 @@ class ReminderListViewController: UITableViewController {
                         self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                         self.refreshProgressView()
                     }
+                } else {
+                    DispatchQueue.main.async {
+                        let alertTitle = NSLocalizedString("Can't Update Reminder", comment: "error updating reminder title")
+                        let alertMesseage = NSLocalizedString("An error occured while attempting to update the reminder.", comment: "error updating reminder message")
+                        let alert = UIAlertController(title: alertTitle, message: alertMesseage, preferredStyle: .alert)
+                        let actionTitle = NSLocalizedString("OK", comment: "ok action title")
+                        alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { _ in
+                            self.dismiss(animated: true, completion: nil)
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 }
             })
         })
-        let navigationController = UINavigationController(rootViewController: detailViewController)
+
+    let navigationController = UINavigationController(rootViewController: detailViewController)
         present(navigationController, animated: true, completion: nil)
     }
 
